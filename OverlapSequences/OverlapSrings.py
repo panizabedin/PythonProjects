@@ -2,14 +2,14 @@ import os
 
 file_lines = []
 sequences = []
-directory_path = '/Users/paniz/Documents/Fasta_files/'
-
+directory_path = input("Enter the directory path of the folder including Fasta files")
 for filename in os.listdir(directory_path):
-    if filename.endswith(".txt"):
+    if filename.endswith(".fa") or filename.endswith(".fasta"):
         file_object = open(directory_path + filename, 'r')
         lines = file_object.readlines()
         for entry in lines:
-            entry = entry.replace('\n', '')
+            entry=entry.strip()
+            # entry = entry.replace('\n', '')
             if entry != '':
                 file_lines.append(entry)
 
