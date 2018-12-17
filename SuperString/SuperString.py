@@ -13,8 +13,6 @@ for filename in os.listdir(directory_path):
             entry = entry.strip()
             if entry != '' and entry.startswith(('A', 'C', 'G', 'T')):
                 file_lines.append(entry)
-print(file_lines)
-
 j = 0
 max_pair1 = -1
 max_pair2 = -1
