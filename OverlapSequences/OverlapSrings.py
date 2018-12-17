@@ -1,7 +1,7 @@
 import os
+import sys
 
 file_lines = []
-
 directory_path = input("Enter the directory path of the folder including Fasta files")
 for filename in os.listdir(directory_path):
     if filename.endswith(".fa") or filename.endswith(".fasta"):
