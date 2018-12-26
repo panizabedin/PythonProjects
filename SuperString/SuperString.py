@@ -19,6 +19,8 @@ max_pair2 = -1
 index_1 = -1
 index_2 = -1
 
+print(file_lines)
+
 output = ''
 while len(file_lines) > 1:
     global_max_overlap = 0
