@@ -1,0 +1,55 @@
+Building DAG of jobs...
+Using shell: /bin/bash
+Provided cores: 2
+Rules claiming more threads will be scaled down.
+Job counts:
+	count	jobs
+	1	all
+	1	bcftools_call
+	1	plot_quals
+	2	samtools_index
+	2	samtools_sort
+	7
+
+[Thu Jan 17 01:24:22 2019]
+rule samtools_sort:
+    input: mapped_reads/A.bam
+    output: sorted_reads/A.bam
+    jobid: 3
+    wildcards: sample=A
+
+
+[Thu Jan 17 01:24:22 2019]
+rule samtools_sort:
+    input: mapped_reads/B.bam
+    output: sorted_reads/B.bam
+    jobid: 4
+    wildcards: sample=B
+
+[Thu Jan 17 01:24:22 2019]
+Error in rule samtools_sort:
+    jobid: 3
+    output: sorted_reads/A.bam
+
+RuleException:
+CalledProcessError in line 25 of /Users/paniz/Documents/Snakemake/snakemake-tutorial/Snakefile:
+Command ' set -euo pipefail;  samtools sort -R sorted_reads/A -O bam mapped_reads/A.bam > sorted_reads/A.bam ' returned non-zero exit status 1.
+  File "/Users/paniz/Documents/Snakemake/snakemake-tutorial/Snakefile", line 25, in __rule_samtools_sort
+  File "/Users/paniz/miniconda3/envs/snakemake-tutorial/lib/python3.6/concurrent/futures/thread.py", line 56, in run
+Removing output files of failed job samtools_sort since they might be corrupted:
+sorted_reads/A.bam
+[Thu Jan 17 01:24:22 2019]
+Error in rule samtools_sort:
+    jobid: 4
+    output: sorted_reads/B.bam
+
+RuleException:
+CalledProcessError in line 25 of /Users/paniz/Documents/Snakemake/snakemake-tutorial/Snakefile:
+Command ' set -euo pipefail;  samtools sort -R sorted_reads/B -O bam mapped_reads/B.bam > sorted_reads/B.bam ' returned non-zero exit status 1.
+  File "/Users/paniz/Documents/Snakemake/snakemake-tutorial/Snakefile", line 25, in __rule_samtools_sort
+  File "/Users/paniz/miniconda3/envs/snakemake-tutorial/lib/python3.6/concurrent/futures/thread.py", line 56, in run
+Removing output files of failed job samtools_sort since they might be corrupted:
+sorted_reads/B.bam
+Shutting down, this might take some time.
+Exiting because a job execution failed. Look above for error message
+Complete log: /Users/paniz/Documents/Snakemake/snakemake-tutorial/.snakemake/log/2019-01-17T012422.803866.snakemake.log
