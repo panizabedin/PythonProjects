@@ -20,7 +20,7 @@ rule samtools_sort:
     output:
         "sorted_reads/{sample}.bam"
     shell:
-        "samtools sort -R sorted_reads/{wildcards.sample} "
+        "samtools sort -T sorted_reads/{wildcards.sample} "
         "-O bam {input} > {output}"
 rule samtools_index:
     input:
