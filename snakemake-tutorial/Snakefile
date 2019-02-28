@@ -1,4 +1,4 @@
-configfile: "config.yaml"
+SAMPLES = ["A", "B"]
 
 rule all:
     input:
