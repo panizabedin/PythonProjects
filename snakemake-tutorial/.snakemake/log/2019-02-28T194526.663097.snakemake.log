@@ -1,0 +1,31 @@
+Building DAG of jobs...
+Using shell: /bin/bash
+Provided cores: 1
+Rules claiming more threads will be scaled down.
+Job counts:
+	count	jobs
+	1	bcftools_call
+	1	plot_quals
+	2
+
+[Thu Feb 28 19:45:26 2019]
+rule bcftools_call:
+    input: data/genome.fa, sorted_reads/A.bam, sorted_reads/B.bam, sorted_reads/A.bam.bai, sorted_reads/B.bam.bai
+    output: calls/all.vcf
+    jobid: 1
+
+[Thu Feb 28 19:45:26 2019]
+Error in rule bcftools_call:
+    jobid: 1
+    output: calls/all.vcf
+
+RuleException:
+CalledProcessError in line 44 of /Users/paniz/Documents/Snakemake/snakemake-tutorial/Snakefile:
+Command ' set -euo pipefail;  samtools mpileup -g -f data/genome.fa sorted_reads/A.bam sorted_reads/B.bam | bcftools call  -P -mv - > calls/all.vcf ' returned non-zero exit status 255.
+  File "/Users/paniz/Documents/Snakemake/snakemake-tutorial/Snakefile", line 44, in __rule_bcftools_call
+  File "/Users/paniz/miniconda3/envs/snakemake-tutorial/lib/python3.6/concurrent/futures/thread.py", line 56, in run
+Removing output files of failed job bcftools_call since they might be corrupted:
+calls/all.vcf
+Shutting down, this might take some time.
+Exiting because a job execution failed. Look above for error message
+Complete log: /Users/paniz/Documents/Snakemake/snakemake-tutorial/.snakemake/log/2019-02-28T194526.663097.snakemake.log

@@ -1,0 +1,9 @@
+Building DAG of jobs...
+Deleting the following files:
+plots/quals.svg
+sorted_reads/A.bam
+sorted_reads/A.bam.bai
+sorted_reads/B.bam
+sorted_reads/B.bam.bai
+mapped_reads/A.bam
+mapped_reads/B.bam

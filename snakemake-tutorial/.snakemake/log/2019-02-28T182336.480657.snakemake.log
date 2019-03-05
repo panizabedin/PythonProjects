@@ -1,0 +1,5 @@
+Building DAG of jobs...
+InputFunctionException in line 7 of /Users/paniz/Documents/Snakemake/snakemake-tutorial/Snakefile:
+KeyError: 'samples'
+Wildcards:
+sample=B

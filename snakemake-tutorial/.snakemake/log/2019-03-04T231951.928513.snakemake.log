@@ -1,0 +1,23 @@
+Building DAG of jobs...
+Using shell: /bin/bash
+Provided cores: 1
+Rules claiming more threads will be scaled down.
+Job counts:
+	count	jobs
+	1	all
+	1	bcftools_call
+	2	bwa_map
+	1	plot_quals
+	2	samtools_index
+	2	samtools_sort
+	9
+
+[Mon Mar  4 23:19:51 2019]
+rule bwa_map:
+    input: data/genome.fa, data/samples/B.fastq
+    output: mapped_reads/B.bam
+    jobid: 7
+    wildcards: sample=B
+
+RuleException in line 8 of /Users/paniz/Documents/PythonProjects/snakemake-tutorial/Snakefile:
+'Params' object has no attribute 'rg'
