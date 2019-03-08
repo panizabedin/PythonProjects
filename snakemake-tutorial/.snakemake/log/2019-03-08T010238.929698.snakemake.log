@@ -1,0 +1,2 @@
+SyntaxError in line 43 of /Users/paniz/Documents/PythonProjects/snakemake-tutorial/Snakefile:
+positional argument follows keyword argument

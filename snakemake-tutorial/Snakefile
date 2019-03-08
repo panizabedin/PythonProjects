@@ -45,10 +45,10 @@ rule bcftools_call:
     output:
         "calls/all.vcf"
     params:
-        newkey= "-P"
+        newkey=r"-P 1e-3"
     shell:
         "samtools mpileup -g -f {input.fa} {input.bam} | "
-        "bcftools call '{params.newkey}' -mv - > {output}"
+        "bcftools call {params.newkey} -mv - > {output}"
 
 
 rule plot_quals:

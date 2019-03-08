@@ -1,0 +1,134 @@
+Building DAG of jobs...
+Using shell: /bin/bash
+Provided cores: 1
+Rules claiming more threads will be scaled down.
+Job counts:
+	count	jobs
+	1	all
+	1	bcftools_call
+	3	bwa_map
+	1	plot_quals
+	3	samtools_index
+	3	samtools_sort
+	12
+
+[Fri Mar  8 01:12:44 2019]
+rule bwa_map:
+    input: data/genome.fa, data/samples/C.fastq
+    output: mapped_reads/C.bam
+    jobid: 11
+    wildcards: sample=C
+
+[Fri Mar  8 01:12:46 2019]
+Finished job 11.
+1 of 12 steps (8%) done
+
+[Fri Mar  8 01:12:46 2019]
+rule bwa_map:
+    input: data/genome.fa, data/samples/B.fastq
+    output: mapped_reads/B.bam
+    jobid: 10
+    wildcards: sample=B
+
+[Fri Mar  8 01:12:47 2019]
+Finished job 10.
+2 of 12 steps (17%) done
+
+[Fri Mar  8 01:12:47 2019]
+rule bwa_map:
+    input: data/genome.fa, data/samples/A.fastq
+    output: mapped_reads/A.bam
+    jobid: 9
+    wildcards: sample=A
+
+[Fri Mar  8 01:12:48 2019]
+Finished job 9.
+3 of 12 steps (25%) done
+
+[Fri Mar  8 01:12:48 2019]
+rule samtools_sort:
+    input: mapped_reads/C.bam
+    output: sorted_reads/C.bam
+    jobid: 7
+    wildcards: sample=C
+
+[Fri Mar  8 01:12:48 2019]
+Finished job 7.
+4 of 12 steps (33%) done
+
+[Fri Mar  8 01:12:48 2019]
+rule samtools_sort:
+    input: mapped_reads/B.bam
+    output: sorted_reads/B.bam
+    jobid: 6
+    wildcards: sample=B
+
+[Fri Mar  8 01:12:48 2019]
+Finished job 6.
+5 of 12 steps (42%) done
+
+[Fri Mar  8 01:12:48 2019]
+rule samtools_sort:
+    input: mapped_reads/A.bam
+    output: sorted_reads/A.bam
+    jobid: 4
+    wildcards: sample=A
+
+[Fri Mar  8 01:12:48 2019]
+Finished job 4.
+6 of 12 steps (50%) done
+
+[Fri Mar  8 01:12:48 2019]
+rule samtools_index:
+    input: sorted_reads/C.bam
+    output: sorted_reads/C.bam.bai
+    jobid: 8
+    wildcards: sample=C
+
+[Fri Mar  8 01:12:48 2019]
+Finished job 8.
+7 of 12 steps (58%) done
+
+[Fri Mar  8 01:12:48 2019]
+rule samtools_index:
+    input: sorted_reads/B.bam
+    output: sorted_reads/B.bam.bai
+    jobid: 5
+    wildcards: sample=B
+
+[Fri Mar  8 01:12:49 2019]
+Finished job 5.
+8 of 12 steps (67%) done
+
+[Fri Mar  8 01:12:49 2019]
+rule samtools_index:
+    input: sorted_reads/A.bam
+    output: sorted_reads/A.bam.bai
+    jobid: 3
+    wildcards: sample=A
+
+[Fri Mar  8 01:12:49 2019]
+Finished job 3.
+9 of 12 steps (75%) done
+
+[Fri Mar  8 01:12:49 2019]
+rule bcftools_call:
+    input: data/genome.fa, sorted_reads/A.bam, sorted_reads/B.bam, sorted_reads/C.bam, sorted_reads/A.bam.bai, sorted_reads/B.bam.bai, sorted_reads/C.bam.bai
+    output: calls/all.vcf
+    jobid: 2
+
+[Fri Mar  8 01:12:49 2019]
+Error in rule bcftools_call:
+    jobid: 2
+    output: calls/all.vcf
+
+RuleException:
+CalledProcessError in line 51 of /Users/paniz/Documents/PythonProjects/snakemake-tutorial/Snakefile:
+Command ' set -euo pipefail;  samtools mpileup -g -f data/genome.fa sorted_reads/A.bam sorted_reads/B.bam sorted_reads/C.bam | bcftools call '-P' -mv - > calls/all.vcf ' returned non-zero exit status 255.
+  File "/Users/paniz/Documents/PythonProjects/snakemake-tutorial/Snakefile", line 51, in __rule_bcftools_call
+  File "/Users/paniz/miniconda3/envs/snakemake-tutorial/lib/python3.6/concurrent/futures/thread.py", line 56, in run
+Removing output files of failed job bcftools_call since they might be corrupted:
+calls/all.vcf
+Shutting down, this might take some time.
+Exiting because a job execution failed. Look above for error message
+Complete log: /Users/paniz/Documents/PythonProjects/snakemake-tutorial/.snakemake/log/2019-03-08T011244.868531.snakemake.log
