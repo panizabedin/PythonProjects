@@ -1,17 +1,21 @@
-SAMPLES = ["A", "B"]
+configfile: "config.yaml"
 
 rule all:
     input:
         "plots/quals.svg"
 
+
 rule bwa_map:
     input:
         "data/genome.fa",
-        "data/samples/{sample}.fastq"
+        lambda wildcards: config["samples"][wildcards.sample]
     output:
         "mapped_reads/{sample}.bam"
+    params:
+        rg=r"@RG\tID:{sample}\tSM:{sample}"
+    threads: 8
     shell:
-        "bwa mem {input} | samtools view -Sb - > {output}"
+        "bwa mem -R '{params.rg}' -t {threads} {input} | samtools view -Sb - > {output}"
 
 
 rule samtools_sort:
@@ -36,13 +40,15 @@ rule samtools_index:
 rule bcftools_call:
     input:
         fa="data/genome.fa",
-        bam=expand("sorted_reads/{sample}.bam", sample=SAMPLES),
-        bai=expand("sorted_reads/{sample}.bam.bai", sample=SAMPLES)
+        bam=expand("sorted_reads/{sample}.bam", sample=config["samples"]),
+        bai=expand("sorted_reads/{sample}.bam.bai", sample=config["samples"])
     output:
         "calls/all.vcf"
+    params:
+        newkey= "-P"
     shell:
         "samtools mpileup -g -f {input.fa} {input.bam} | "
-        "bcftools call -mv - > {output}"
+        "bcftools call '{params.newkey}' -mv - > {output}"
 
 
 rule plot_quals:
