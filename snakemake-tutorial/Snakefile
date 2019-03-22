@@ -13,10 +13,12 @@ rule bwa_map:
         "mapped_reads/{sample}.bam"
     params:
         rg=r"@RG\tID:{sample}\tSM:{sample}"
+    log:
+        "logs/bwa_mem/{sample}.log"
     threads: 8
     shell:
-        "bwa mem -R '{params.rg}' -t {threads} {input} | samtools view -Sb - > {output}"
-
+        "(bwa mem -R '{params.rg}' -t {threads} {input} | "
+        "samtools view -Sb - > {output}) 2> {log}"
 
 rule samtools_sort:
     input:
@@ -44,11 +46,14 @@ rule bcftools_call:
         bai=expand("sorted_reads/{sample}.bam.bai", sample=config["samples"])
     output:
         "calls/all.vcf"
+    log:
+        "logs/bcftools_call/all.vcf.log"
     params:
         newkey=r"-P 1e-3"
     shell:
-        "samtools mpileup -g -f {input.fa} {input.bam} | "
-        "bcftools call {params.newkey} -mv - > {output}"
+        "(samtools mpileup -g -f {input.fa} {input.bam} | "
+        "bcftools call {params.newkey} -mv - > {output}) 2>{log}"
+
 
 
 rule plot_quals:

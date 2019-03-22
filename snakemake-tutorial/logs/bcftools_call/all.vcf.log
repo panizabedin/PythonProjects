@@ -1,0 +1,3 @@
+[warning] samtools mpileup option `g` is functional, but deprecated. Please switch to using bcftools mpileup in future.
+Note: none of --samples-file, --ploidy or --ploidy-file given, assuming all sites are diploid
+[mpileup] 3 samples in 3 input files
