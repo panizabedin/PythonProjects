@@ -10,7 +10,7 @@ rule bwa_map:
         "data/genome.fa",
         lambda wildcards: config["samples"][wildcards.sample]
     output:
-        "mapped_reads/{sample}.bam"
+        temp("mapped_reads/{sample}.bam")
     params:
         rg=r"@RG\tID:{sample}\tSM:{sample}"
     log:
@@ -24,11 +24,10 @@ rule samtools_sort:
     input:
         "mapped_reads/{sample}.bam"
     output:
-        "sorted_reads/{sample}.bam"
+        protected("sorted_reads/{sample}.bam")
     shell:
         "samtools sort -T sorted_reads/{wildcards.sample} "
         "-O bam {input} > {output}"
-
 
 rule samtools_index:
     input:

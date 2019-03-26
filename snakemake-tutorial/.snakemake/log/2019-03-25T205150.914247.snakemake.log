@@ -1,0 +1,12 @@
+Building DAG of jobs...
+Job counts:
+	count	jobs
+	1	all
+	1	bcftools_call
+	1	plot_quals
+	2	samtools_index
+	2	samtools_sort
+	7
+ProtectedOutputException in line 23 of /Users/paniz/Documents/PythonProjects/snakemake-tutorial/Snakefile:
+Write-protected output files for rule samtools_sort:
+sorted_reads/A.bam

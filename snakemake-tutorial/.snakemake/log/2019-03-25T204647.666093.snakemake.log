@@ -1,0 +1,28 @@
+Building DAG of jobs...
+Using shell: /bin/bash
+Provided cores: 1
+Rules claiming more threads will be scaled down.
+Job counts:
+	count	jobs
+	1	all
+	1	bcftools_call
+	1	bwa_map
+	1	plot_quals
+	1	samtools_index
+	1	samtools_sort
+	6
+
+[Mon Mar 25 20:46:47 2019]
+rule bwa_map:
+    input: data/genome.fa, data/samples/A.fastq
+    output: mapped_reads/A.bam
+    log: logs/bwa_mem/A.log
+    jobid: 0
+    wildcards: sample=A
+
+[Mon Mar 25 20:46:48 2019]
+Finished job 0.
+1 of 6 steps (17%) done
+ProtectedOutputException in line 23 of /Users/paniz/Documents/PythonProjects/snakemake-tutorial/Snakefile:
+Write-protected output files for rule samtools_sort:
+sorted_reads/A.bam
